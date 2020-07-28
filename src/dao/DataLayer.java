@@ -15,7 +15,7 @@ import util.ItemTM;
 import util.OrderDetailTM;
 import util.OrderTM;
 
-public class dataLayer {
+public class DataLayer {
   public static List<CustomerTM> getAllCustomers(){
     try {
       Connection connection = DBConnection.getInstance().getConnection();
