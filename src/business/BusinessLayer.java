@@ -1,10 +1,15 @@
 package business;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import dao.DataLayer;
+import db.DBConnection;
 import util.CustomerTM;
 import util.ItemTM;
+import util.OrderDetailTM;
+import util.OrderTM;
 
 public class BusinessLayer {
 
@@ -40,4 +45,46 @@ public class BusinessLayer {
     return DataLayer.updateItem(new ItemTM(itemCode, description, qtyOnHand, unitPrice));
   }
 
+  public static boolean placeOrder(OrderTM order, List<OrderDetailTM> orderDetails){
+    Connection connection = DBConnection.getInstance().getConnection();
+    try {
+      connection.setAutoCommit(false);
+
+      boolean result = DataLayer.saveOrder(order);
+      if (!result){
+        connection.rollback();
+        return false;
+      }
+
+      result = DataLayer.saveOrderDetail(order.getOrderId(),orderDetails);
+      if (!result){
+        connection.rollback();
+        return false;
+      }
+
+      result = DataLayer.updateQty(orderDetails);
+      if (!result){
+        connection.rollback();
+        return false;
+      }
+
+      connection.commit();
+      return true;
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+      try {
+        connection.rollback();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+      return false;
+    } finally {
+      try {
+        connection.setAutoCommit(true);
+      } catch (SQLException throwables) {
+        throwables.printStackTrace();
+      }
+    }
+  }
 }
