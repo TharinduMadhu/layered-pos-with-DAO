@@ -1,4 +1,4 @@
-package dao;
+package dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,7 +34,7 @@ public class DataLayer {
     return null;
   }
 
-  public static boolean saveCustomer(CustomerTM customer){
+  public  static boolean saveCustomer(CustomerTM customer){
     try {
       Connection connection = DBConnection.getInstance().getConnection();
       PreparedStatement pstm = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?)");
@@ -48,7 +48,7 @@ public class DataLayer {
     }
   }
 
-  public static boolean deleteCustomer(String customerId){
+  public  static boolean deleteCustomer(String customerId){
     try {
       Connection connection = DBConnection.getInstance().getConnection();
       PreparedStatement pstm = connection.prepareStatement("DELETE FROM Customer WHERE id=?");
@@ -60,7 +60,7 @@ public class DataLayer {
     }
   }
 
-  public static boolean updateCustomer(CustomerTM customer){
+  public  static boolean updateCustomer(CustomerTM customer){
     try {
       Connection connection = DBConnection.getInstance().getConnection();
       PreparedStatement pstm = connection.prepareStatement("UPDATE Customer SET name=?, address=? WHERE id=?");
@@ -74,7 +74,7 @@ public class DataLayer {
     }
   }
 
-  public static List<ItemTM> getAllItems(){
+  public  static List<ItemTM> getAllItems(){
     try {
       Connection connection = DBConnection.getInstance().getConnection();
       Statement stm = connection.createStatement();

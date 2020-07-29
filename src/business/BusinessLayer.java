@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.CustomerDAO;
-import dao.ItemDAO;
-import dao.OrderDAO;
-import dao.OrderDetailDAO;
+import dao.impl.CustomerDAOImpl;
+import dao.impl.ItemDAOImpl;
+import dao.impl.OrderDAOImpl;
+import dao.impl.OrderDetailDAOImpl;
 import db.DBConnection;
 import entity.Customer;
 import entity.Item;
@@ -24,7 +24,7 @@ import util.OrderTM;
 public class BusinessLayer {
 
   public static String getNewCustomerId() {
-    String lastCustomerId = CustomerDAO.getLastCustomerId();
+    String lastCustomerId = CustomerDAOImpl.getLastCustomerId();
     if (lastCustomerId == null) {
       return "C001";
     } else {
@@ -43,7 +43,7 @@ public class BusinessLayer {
   }
 
   public static String getNewItemCode() {
-    String lastItemCode = ItemDAO.getLastItemCode();
+    String lastItemCode = ItemDAOImpl.getLastItemCode();
     if (lastItemCode == null) {
       return "I001";
     } else {
@@ -62,7 +62,7 @@ public class BusinessLayer {
   }
 
   public static String getNewOrderId() {
-    String lastOrderId = OrderDAO.getLastOrderId();
+    String lastOrderId = OrderDAOImpl.getLastOrderId();
     if (lastOrderId == null) {
       return "OD001";
     } else {
@@ -81,7 +81,7 @@ public class BusinessLayer {
   }
 
   public static List<CustomerTM> getAllCustomers() {
-    List<Customer> allCustomers = CustomerDAO.findAllCustomers();
+    List<Customer> allCustomers = CustomerDAOImpl.findAllCustomers();
     List<CustomerTM> customers = new ArrayList<>();
     for (Customer customer : allCustomers) {
       customers.add(new CustomerTM(customer.getId(), customer.getName(), customer.getAddress()));
@@ -90,19 +90,19 @@ public class BusinessLayer {
   }
 
   public static boolean saveCustomer(String id, String name, String address) {
-    return CustomerDAO.saveCustomer(new Customer(id, name, address));
+    return CustomerDAOImpl.saveCustomer(new Customer(id, name, address));
   }
 
   public static boolean deleteCustomer(String customerId) {
-    return CustomerDAO.deleteCustomer(customerId);
+    return CustomerDAOImpl.deleteCustomer(customerId);
   }
 
   public static boolean updateCustomer(String name, String address, String customerId) {
-    return CustomerDAO.updateCustomer(new Customer(customerId, name, address));
+    return CustomerDAOImpl.updateCustomer(new Customer(customerId, name, address));
   }
 
   public static List<ItemTM> getAllItems() {
-    List<Item> allItems = ItemDAO.findAllItems();
+    List<Item> allItems = ItemDAOImpl.findAllItems();
     List<ItemTM> items = new ArrayList<>();
     for (Item item : allItems) {
       items.add(new ItemTM(item.getCode(), item.getDescription(), item.getQtyOnHand(),
@@ -112,15 +112,15 @@ public class BusinessLayer {
   }
 
   public static boolean saveItem(String code, String description, int qtyOnHand, double unitPrice) {
-    return ItemDAO.saveItem(new Item(code, description, BigDecimal.valueOf(unitPrice), qtyOnHand));
+    return ItemDAOImpl.saveItem(new Item(code, description, BigDecimal.valueOf(unitPrice), qtyOnHand));
   }
 
   public static boolean deleteItem(String itemCode) {
-    return ItemDAO.deleteItem(itemCode);
+    return ItemDAOImpl.deleteItem(itemCode);
   }
 
   public static boolean updateItem(String description, int qtyOnHand, double unitPrice, String itemCode) {
-    return ItemDAO.updateItem(new Item(itemCode, description,
+    return ItemDAOImpl.updateItem(new Item(itemCode, description,
         BigDecimal.valueOf(unitPrice), qtyOnHand));
   }
 
@@ -129,7 +129,7 @@ public class BusinessLayer {
     Connection connection = DBConnection.getInstance().getConnection();
     try {
       connection.setAutoCommit(false);
-      boolean result = OrderDAO.saveOrder(new Order(order.getOrderId(),
+      boolean result = OrderDAOImpl.saveOrder(new Order(order.getOrderId(),
           Date.valueOf(order.getOrderDate()),
           order.getCustomerId()));
       if (!result) {
@@ -137,7 +137,7 @@ public class BusinessLayer {
         return false;
       }
       for (OrderDetailTM orderDetail : orderDetails) {
-        result = OrderDetailDAO.saveOrderDetail(new OrderDetail(
+        result = OrderDetailDAOImpl.saveOrderDetail(new OrderDetail(
             order.getOrderId(), orderDetail.getCode(),
             orderDetail.getQty(), BigDecimal.valueOf(orderDetail.getUnitPrice())
         ));
@@ -145,9 +145,9 @@ public class BusinessLayer {
           connection.rollback();
           return false;
         }
-        Item item = ItemDAO.findItem(orderDetail.getCode());
+        Item item = ItemDAOImpl.findItem(orderDetail.getCode());
         item.setQtyOnHand(item.getQtyOnHand() - orderDetail.getQty());
-        result = ItemDAO.updateItem(item);
+        result = ItemDAOImpl.updateItem(item);
         if (!result){
           connection.rollback();
           return false;
