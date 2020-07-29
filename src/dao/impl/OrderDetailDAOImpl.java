@@ -8,11 +8,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.OrderDetailDAO;
 import db.DBConnection;
 import entity.OrderDetail;
 import entity.OrderDetailPK;
 
-public class OrderDetailDAOImpl {
+public class OrderDetailDAOImpl implements OrderDetailDAO {
 
     public  List<OrderDetail> findAllOrderDetails() {
         try {

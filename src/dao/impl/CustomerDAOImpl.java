@@ -8,10 +8,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.CustomerDAO;
 import db.DBConnection;
 import entity.Customer;
 
-public class CustomerDAOImpl {
+public class CustomerDAOImpl implements CustomerDAO {
 
     public  List<Customer> findAllCustomers(){
         try {

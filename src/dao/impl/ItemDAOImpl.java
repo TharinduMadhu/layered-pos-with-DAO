@@ -8,10 +8,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.ItemDAO;
 import db.DBConnection;
 import entity.Item;
 
-public class ItemDAOImpl {
+public class ItemDAOImpl implements ItemDAO {
     public  List<Item> findAllItems(){
         try {
             Connection connection = DBConnection.getInstance().getConnection();
