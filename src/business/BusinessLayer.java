@@ -89,10 +89,9 @@ public class BusinessLayer {
 
   public static List<CustomerTM> getAllCustomers() {
     CustomerDAO customerDAO = new CustomerDAOImpl();
-    List<Object> allCustomers = customerDAO.findAll();
+    List<Customer> allCustomers = customerDAO.findAll();
     List<CustomerTM> customers = new ArrayList<>();
-    for (Object c : allCustomers) {
-      Customer customer = (Customer)c;
+    for (Customer customer : allCustomers) {
       customers.add(new CustomerTM(customer.getId(), customer.getName(), customer.getAddress()));
     }
     return customers;
@@ -115,10 +114,9 @@ public class BusinessLayer {
 
   public static List<ItemTM> getAllItems() {
     ItemDAO itemDAO = new ItemDAOImpl();
-    List<Object> allItems = itemDAO.findAll();
+    List<Item> allItems = itemDAO.findAll();
     List<ItemTM> items = new ArrayList<>();
-    for (Object i : allItems) {
-      Item item = (Item) i;
+    for (Item item : allItems) {
       items.add(new ItemTM(item.getCode(), item.getDescription(), item.getQtyOnHand(),
           item.getUnitPrice().doubleValue()));
     }
