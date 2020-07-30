@@ -21,15 +21,15 @@ public class DAOFactory {
     return (daoFactory==null)? daoFactory = new DAOFactory() : daoFactory;
   }
 
-  public SuperDAO getDAO(int daoType){
+  public SuperDAO getDAO(DAOType daoType){
     switch (daoType) {
-      case 0:
+      case CUSTOMER:
         return new CustomerDAOImpl();
-      case 1:
-        return new ItemDAOImpl();
-      case 2:
+      case ITEM:
         return  new OrderDAOImpl();
-      case 3:
+      case ORDER:
+        return new ItemDAOImpl();
+      case ORDER_DETAIL:
         return new OrderDetailDAOImpl();
       default:
         return null;
