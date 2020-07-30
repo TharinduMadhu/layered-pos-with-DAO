@@ -1,5 +1,7 @@
 package dao;
 
+import java.lang.invoke.SwitchPoint;
+
 import dao.custom.CustomerDAO;
 import dao.custom.ItemDAO;
 import dao.custom.OrderDAO;
@@ -19,7 +21,22 @@ public class DAOFactory {
     return (daoFactory==null)? daoFactory = new DAOFactory() : daoFactory;
   }
 
-  public CustomerDAO getCustomerDAO(){
+  public SuperDAO getDAO(int daoType){
+    switch (daoType) {
+      case 0:
+        return new CustomerDAOImpl();
+      case 1:
+        return new ItemDAOImpl();
+      case 2:
+        return  new OrderDAOImpl();
+      case 3:
+        return new OrderDetailDAOImpl();
+      default:
+        return null;
+    }
+  }
+
+/*  public CustomerDAO getCustomerDAO(){
     return new CustomerDAOImpl();
   }
 
@@ -33,5 +50,5 @@ public class DAOFactory {
 
   public OrderDetailDAO getOrderDetailDAO(){
     return new OrderDetailDAOImpl();
-  }
+  }*/
 }
