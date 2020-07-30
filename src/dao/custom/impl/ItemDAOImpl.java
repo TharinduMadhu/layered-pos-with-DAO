@@ -1,4 +1,4 @@
-package dao.impl;
+package dao.custom.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.ItemDAO;
+import dao.custom.ItemDAO;
 import db.DBConnection;
 import entity.Item;
 
