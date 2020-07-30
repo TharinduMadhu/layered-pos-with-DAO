@@ -5,7 +5,8 @@ import entity.CustomEntity;
 
 public interface QueryDAO extends SuperDAO {
 
-  CustomEntity getOrderDetail();
-  CustomEntity getOrderDetail2();
+  CustomEntity getOrderDetail(String orderId);
+  CustomEntity getOrderDetail2(String orderId);
+  CustomEntity getOrderDetail3(String orderId);
 
 }
