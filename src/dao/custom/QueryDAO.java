@@ -1,5 +1,11 @@
 package dao.custom;
 
-public interface QueryDAO {
+import dao.SuperDAO;
+import entity.CustomEntity;
+
+public interface QueryDAO extends SuperDAO {
+
+  CustomEntity getOrderDetail();
+  CustomEntity getOrderDetail2();
 
 }

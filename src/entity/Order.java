@@ -3,7 +3,7 @@ package entity;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class Order extends SuperEntity{
+public class Order implements SuperEntity {
 
     private String id;
     private Date date;
