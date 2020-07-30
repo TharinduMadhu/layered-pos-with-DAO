@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import controller.ManageCustomerFormController;
 import db.DBConnection;
 import util.CustomerTM;
 import util.ItemTM;
