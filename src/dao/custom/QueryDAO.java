@@ -12,4 +12,5 @@ public interface QueryDAO extends SuperDAO {
   CustomEntity getOrderDetail3(String orderId);
   List<CustomEntity> getOrderDetail4(String orderId);
 
+
 }

@@ -10,4 +10,6 @@ public interface CrudDAO <T extends Serializable,ID extends Serializable> extend
   boolean save(T entity);
   boolean update(T entity);
   boolean delete(ID key);
+
+
 }
