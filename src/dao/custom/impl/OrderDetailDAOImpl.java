@@ -18,8 +18,7 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
 
 
     @Override
-    public List<OrderDetail> findAll() {
-        try {
+    public List<OrderDetail> findAll() throws Exception {
 //            Connection connection = DBConnection.getInstance().getConnection();
 //            Statement stm = connection.createStatement();
             // ResultSet rst = stm.executeQuery("SELECT * FROM `OrderDetail`");
@@ -32,37 +31,27 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
                     rst.getBigDecimal(4)));
             }
             return orderDetails;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return null;
         }
-    }
 
     @Override
-    public OrderDetail find(OrderDetailPK key) {
-        try {
+    public OrderDetail find(OrderDetailPK key) throws Exception {
 //            Connection connection = DBConnection.getInstance().getConnection();
 //            PreparedStatement pstm = connection.prepareStatement("SELECT * FROM `OrderDetail` WHERE orderId=? AND itemCode=?");
 //            pstm.setObject(1, key.getOrderId());
 //            pstm.setObject(2, key.getItemCode());
-            ResultSet rst = CrudUtil.execute("SELECT * FROM `OrderDetail` WHERE orderId=? AND itemCode=?", key.getOrderId(),
-                    key.getItemCode());
-            if (rst.next()) {
-                return new OrderDetail(rst.getString(1),
+        ResultSet rst = CrudUtil.execute("SELECT * FROM `OrderDetail` WHERE orderId=? AND itemCode=?", key.getOrderId(),
+                key.getItemCode());
+        if (rst.next()) {
+            return new OrderDetail(rst.getString(1),
                     rst.getString(2),
                     rst.getInt(3),
                     rst.getBigDecimal(4));
-            }
-            return null;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return null;
         }
+        return null;
     }
 
     @Override
-    public boolean save(OrderDetail orderDetail) {
-        try {
+    public boolean save(OrderDetail orderDetail) throws Exception {
 //            Connection connection = DBConnection.getInstance().getConnection();
 //            PreparedStatement pstm = connection.prepareStatement("INSERT INTO `OrderDetail` VALUES (?,?,?,?)");
 //            pstm.setObject(1, orderDetail.getOrderDetailPK().getOrderId());
@@ -72,15 +61,10 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
 
             return CrudUtil.execute("INSERT INTO `OrderDetail` VALUES (?,?,?,?)", orderDetail.getOrderDetailPK().getOrderId(),
                     orderDetail.getOrderDetailPK().getItemCode(),orderDetail.getQty(),orderDetail.getUnitPrice());
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return false;
         }
-    }
 
     @Override
-    public boolean update(OrderDetail orderDetail) {
-        try {
+    public boolean update(OrderDetail orderDetail) throws Exception {
 //            Connection connection = DBConnection.getInstance().getConnection();
 ////            PreparedStatement pstm = connection.prepareStatement("UPDATE OrderDetail SET qty=?, unitPrice=? WHERE orderId=? AND itemCode=?");
 ////            pstm.setObject(3, orderDetail.getOrderDetailPK().getOrderId());
@@ -90,16 +74,11 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
 
             return CrudUtil.execute("UPDATE OrderDetail SET qty=?, unitPrice=? WHERE orderId=? AND itemCode=?", orderDetail.getOrderDetailPK().getOrderId(),
                     orderDetail.getOrderDetailPK().getItemCode(),orderDetail.getQty(),orderDetail.getUnitPrice());
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return false;
         }
-    }
 
 
     @Override
-    public boolean delete(OrderDetailPK orderDetailPK) {
-        try {
+    public boolean delete(OrderDetailPK orderDetailPK) throws Exception {
 //            Connection connection = DBConnection.getInstance().getConnection();
 //            PreparedStatement pstm = connection.
 //                prepareStatement("DELETE FROM `OrderDetail` WHERE orderId=? AND itemCode=?");
@@ -107,9 +86,5 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
 //            pstm.setObject(2, orderDetailPK.getItemCode());
             return  CrudUtil.execute("DELETE FROM `OrderDetail` WHERE orderId=? AND itemCode=?", orderDetailPK.getOrderId(),
                     orderDetailPK.getItemCode());
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return false;
         }
     }
-}

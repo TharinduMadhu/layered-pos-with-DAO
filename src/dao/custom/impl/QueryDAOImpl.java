@@ -17,7 +17,7 @@ import entity.Customer;
 public class QueryDAOImpl implements QueryDAO {
 
   @Override
-  public CustomEntity getOrderDetail(String orderId) {
+  public CustomEntity getOrderDetail(String orderId) throws Exception{
     try {
       Connection connection = DBConnection.getInstance().getConnection();
       PreparedStatement pstm = connection
@@ -36,7 +36,7 @@ public class QueryDAOImpl implements QueryDAO {
   }
 
   @Override
-  public CustomEntity getOrderDetail2(String orderId) {
+  public CustomEntity getOrderDetail2(String orderId) throws Exception{
     try {
       Connection connection = DBConnection.getInstance().getConnection();
       PreparedStatement pstm = connection
@@ -57,7 +57,7 @@ public class QueryDAOImpl implements QueryDAO {
   }
 
   @Override
-  public CustomEntity getOrderDetail3(String orderId) {
+  public CustomEntity getOrderDetail3(String orderId) throws Exception{
     try {
       Connection connection = DBConnection.getInstance().getConnection();
       PreparedStatement pstm = connection
@@ -81,7 +81,7 @@ public class QueryDAOImpl implements QueryDAO {
   }
 
   @Override
-  public List<CustomEntity> getOrderDetail4(String orderId) {
+  public List<CustomEntity> getOrderDetail4(String orderId) throws Exception{
     try {
       Connection connection = DBConnection.getInstance().getConnection();
       PreparedStatement pstm = connection

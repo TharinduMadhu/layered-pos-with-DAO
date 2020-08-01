@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class CrudUtil  {
-    public static <T>  T execute(String sql,Object... params) throws SQLException {
+    public static <T>  T execute(String sql,Object... params) throws Exception {
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement pstm = connection.prepareStatement(sql);
         int i =0;
